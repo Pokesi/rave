@@ -5,6 +5,7 @@ import WrappedSearch from './components/Search/Search.js';
 import WrappedInfo from './components/Info/Info.js';
 import Wrapped404 from './components/404/404.js';
 import WrappedBridge from './components/Bridge/Bridge.js';
+import WrappedJS from './components/JS/JS.js';
 
 import { Routes, Route } from "react-router-dom";
 import { Scrollbar } from "react-scrollbars-custom";
@@ -67,6 +68,7 @@ class App extends Component {
           <Route path="/name/:name" element={<WrappedSearch />} />
           <Route path="/info" element={<WrappedInfo />} />
           <Route path="/bridge" element={<WrappedBridge />} />
+          <Route path="/ravejs" element={<WrappedJS />} />
           <Route path="/*" element={<Wrapped404 />} />
         </Routes>
       </Scrollbar>

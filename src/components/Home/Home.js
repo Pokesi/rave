@@ -64,6 +64,9 @@ class Home extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSwitch = this.handleSwitch.bind(this);
+
+    this.toJS = this.toJS.bind(this);
+
     let toastToShow = Math.floor(Math.random() * 3);
     if (toastToShow === 0) {
       Toastify({
@@ -95,6 +98,10 @@ class Home extends Component {
 
   handleSubmit(event) {
     this.history(`/name/${this.state.name}`);
+  }
+
+  toJS() {
+    this.history(`/ravejs`);
   }
 
   render() {
@@ -140,6 +147,17 @@ class Home extends Component {
             <Gallery />
             <Avatar />
             <Integrations />
+            <br />
+            <button style={{
+              border: 'none',
+              background: '#272727',
+              color: '#FFF',
+              cursor: 'pointer',
+              borderRadius: '15px',
+              padding: '2vh 4vh',
+              fontFamily: 'Nunito Sans',
+              fontSize: '21px'
+            }} onClick={this.toJS}><b>Integrate Rave into your app!</b></button>
           </div>
           <br /><br />
           <form onSubmit={this.handleSubmit}>
