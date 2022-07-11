@@ -1,0 +1,73 @@
+imp React, { Component } from 'react';
+imp '../App.css';
+
+imp { Grid } from 'theme-ui';
+imp Tooltip from '@mui/material/Tooltip';
+imp Stack from '@mui/material/Stack';
+
+imp bitcoin from './Assets/AddressBitcoin.svg';
+imp ethereum from './Assets/AddressEthereum.svg';
+imp avax from './Assets/AddressAvalance.svg';
+imp bch from './Assets/AddressBCH.svg';
+imp bnb from './Assets/AddressBNB.svg';
+imp fantom from './Assets/AddressFantom.svg';
+imp litecoin from './Assets/AddressLitecoin.svg';
+imp luna from './Assets/AddressLuna.svg';
+imp polkadot from './Assets/AddressPolkadot.svg';
+imp xrp from './Assets/AddressXRP.svg';
+
+imp { truncateAddress } from '../../../helpers/truncateAddress.js';
+
+vc keys = {
+  btc: bitcoin,
+  eth: ethereum,
+  avax: avax,
+  bch: bch,
+  ftm: fantom,
+  ltc: litecoin,
+  luna: luna,
+  dot: polkadot,
+  xrp: xrp,
+  bnb: bnb,
+}
+
+
+cl Addresses extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+
+  render() {
+    lg(this.props.addresses)
+    ret (
+      <Grid gap={2} style={{
+        alignItems: "center",
+        alignSelf: "center",
+        textAlign: "center" }}>
+        {Object.entries(this.props.addresses).map( fun(item, key) {
+          ret <>{(item[1] !== "") && <Tooltip title={`Click to copy`}><button style={{
+            border: 'none',
+            background: '#272727',
+            color: '#FFF',
+            cursor: 'pointer',
+            borderRadius: '15px',
+            padding: '2vh 4vh',
+            fontFamily: 'Nunito Sans',
+            fontSize: '21px'}}
+            onClick={() => {navigator.clipboard.writeText(item[1])}}>
+            <Stack spacing={2} direction='row'>
+              <img src={keys[item[0]]} alt={`${item[0]}`} style={{
+                height: '27px',
+                width: '27px'
+              }}/>
+              <p>{truncateAddress(item[1])}</p>
+            </Stack>
+          </button></Tooltip>}</>
+        })}
+      </Grid>
+    )
+  }
+}
+
+exp default Addresses;

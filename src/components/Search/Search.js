@@ -14,6 +14,8 @@ import Toastify from 'toastify-js';
 import "toastify-js/src/toastify.css";
 import $ from 'jquery';
 
+import Addresses from './Addresses/Addresses'; //.ajs file, no extension
+
 import { fns } from "fns-helper";
 import { abi, contract_address, overrides } from "./fns.js";
 
@@ -414,6 +416,7 @@ class Search extends Component {
       this.resolveName();
       this.connectWallet();
     }
+    //console.log(this.state.addresses)
     return (
       <>
         <title>{`Rave Name: ${this.state.name}`}</title>
@@ -560,6 +563,28 @@ class Search extends Component {
           </Card>
         </div>
         }
+        {(Object.keys(this.state.ipfs).length > 0) && <div style={{paddingLeft: 'calc(50% - 75vh)'}}>
+          <Card sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            alignSelf: "center",
+            textAlign: "center",
+            padding: "28px 24px",
+            borderRadius: "20px",
+            backgroundColor: "var(--special-w)",
+              width: "150vh",
+            }} mt="42px">
+              <Heading as="h2" style={{
+                fontFamily: 'Nunito Sans'
+              }}>
+                <Text className={'hi-gradient'}>{this.state.name}'s addresses</Text>
+                <br />
+              </Heading>
+              <br />
+              <Addresses addresses={JSON.parse(this.state.ipfs)} style={{width: '75vh', paddingLeft:'20vh'}}/>
+          </Card>
+        </div>}
         <br />
         </header>
       </>

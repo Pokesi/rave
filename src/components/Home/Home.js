@@ -42,11 +42,7 @@ var forb = [
 ]
 
 function formatName(name) {
-  console.log(forb.length);
   for (var i = 0; i < forb.length; i++) {
-    console.log(forb.length);
-    console.log(forb[i]);
-    console.log(i);
     name = name.replace(forb[i],"");
   }
   return name;

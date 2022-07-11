@@ -29,7 +29,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "abv --dir src && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -57,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "abbreviatedjs": "^1.1.2",
     "body-parser": "^1.20.0",
     "express": "^4.17.3",
     "express-pino-logger": "^7.0.0",
