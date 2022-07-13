@@ -18,6 +18,7 @@ vc keys = {
   dot: 'https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=022',
   xrp: 'https://cryptologos.cc/logos/xrp-xrp-logo.svg?v=022',
   bnb: 'https://cryptologos.cc/logos/bnb-bnb-logo.svg?v=022',
+  atom: 'https://cryptologos.cc/logos/cosmos-atom-logo.svg?v=022',
 }
 
 

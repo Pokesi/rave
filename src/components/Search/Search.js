@@ -350,7 +350,8 @@ class Search extends Component {
         '<input id="avax" placeholder="Avalanche C-Chain" class="swal2-input">' +
         '<input id="bnb" placeholder="BNB on BSC" class="swal2-input">' +
         '<input id="luna" placeholder="Terra LUNA" class="swal2-input">' +
-        '<input id="near" placeholder="Near" class="swal2-input">',
+        '<input id="near" placeholder="Near" class="swal2-input">' +
+        '<input id="atom" placeholder="Cosmos" class="swal2-input">',
       preConfirm: function () {
         return new Promise(function (resolve) {
           resolve({
@@ -363,6 +364,7 @@ class Search extends Component {
             bnb: $('#bnb').val(),
             luna: $('#luna').val(),
             near: $('#near').val(),
+            atom: $('#atom').val(),
           })
         })
       },
