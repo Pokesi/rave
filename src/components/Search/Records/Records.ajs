@@ -1,4 +1,4 @@
-imp React, { Component } from 'react';
+imp React, { Component, useState } from 'react';
 imp '../App.css';
 
 imp { Grid } from 'theme-ui';
@@ -66,10 +66,10 @@ vc InputWithTag = ({
   onChange,
   contract,
 }) => {
-  vl record;
+  vc [record, setRecord] = useState('');
   getRecord(name, txt).then(res => {
-    record = res;
-  })
+    setRecord(res);
+  });
   ret <Stack direction="row" spacing={4}  style={{
         height: '10vh',
       }}>

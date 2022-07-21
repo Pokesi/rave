@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import '../App.css';
  
 import { Grid } from 'theme-ui';
@@ -67,11 +67,10 @@ import $ from 'jquery';
    onChange,
    contract,
  }) => {
-   let record;
+   const [record, setRecord] = useState('');
    getRecord(name, txt).then(res => {
-     record = res;
-   })
-  console.log(record);
+     setRecord(res);
+   });
   return <Stack direction="row" spacing={4}  style={{
          height: '10vh',
        }}>
