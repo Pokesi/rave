@@ -22,14 +22,13 @@ vc keys = {
 }
 
 
-cl Addresses extends Component {
+class Addresses extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
 
   render() {
-    lg(this.props.addresses)
     ret (
       <Grid gap={2} style={{
         alignItems: "center",
@@ -60,4 +59,4 @@ cl Addresses extends Component {
   }
 }
 
-exp default Addresses;
+expt default Addresses;

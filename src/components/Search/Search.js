@@ -15,9 +15,10 @@ import "toastify-js/src/toastify.css";
 import $ from 'jquery';
 
 import Addresses from './Addresses/Addresses'; //.ajs file, no extension
+import Records from './Records/Records'; // ' '
 
 import { fns } from "fns-helper";
-import { abi, contract_address, overrides } from "./fns.js";
+import { abi, contract_address, overrides, externalAbi } from "./fns.js";
 
 import { truncateAddress } from "../../helpers/truncateAddress.js";
 import { ethers } from 'ethers';
@@ -280,10 +281,12 @@ class Search extends Component {
       let accounts = await provider.send("eth_requestAccounts", []);
       let account = accounts[0];
       let contract = new ethers.Contract(contract_address, abi, signer);
+      let externalContract = new ethers.Contract('0xaFa8da49b9c30AFDaf80A2DF5d01b36814c6d1ac', externalAbi, signer);
       this.setState({
         provider: provider,
         account: account,
         signer: signer,
+        externalContract: externalContract,
         contract: contract,
         isOwner: (this.state.owner === ethers.utils.getAddress(account)),
         chainId: chainId
@@ -565,7 +568,31 @@ class Search extends Component {
           </Card>
         </div>
         }
-        {(Object.keys(this.state.ipfs).length > 0) && <div style={{paddingLeft: 'calc(50% - 75vh)'}}>
+        {this.state.isOwned &&
+          <div style={{paddingLeft: 'calc(50% - 75vh)'}}>
+            <Card sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              alignSelf: "center",
+              textAlign: "center",
+              padding: "28px 24px",
+              borderRadius: "20px",
+              backgroundColor: "var(--special-w)",
+                width: "150vh",
+              }} mt="42px">
+                <Heading as="h2" style={{
+                  fontFamily: 'Nunito Sans'
+                }}>
+                  <Text className={'hi-gradient'}>{this.state.name}'s text records</Text>
+                  <br />
+                </Heading>
+                <br />
+                <Records owner={this.state.isOwner} name={this.state.name} contract={this.state.externalContract}/>
+            </Card>
+          </div>
+        }
+        {(Object.keys(this.state.ipfs).length > 0) && this.state.isOwned && <div style={{paddingLeft: 'calc(50% - 75vh)'}}>
           <Card sx={{
             display: "flex",
             flexDirection: "column",
