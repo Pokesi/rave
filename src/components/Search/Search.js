@@ -624,9 +624,9 @@ class Search extends Component {
 
 const WrappedSearch = props => {
   let { name } = useParams();
-  if (name.startsWith('0x')) {
+  /*if (name.startsWith('0x')) {
     // do nothing
-  } else if (!(name.endsWith('.ftm'))) {
+  } else*/ if (!(name.endsWith('.ftm'))) {
     name = `${name}.ftm`
   }
   const history = useNavigate();
