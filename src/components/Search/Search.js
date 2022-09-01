@@ -17,7 +17,6 @@ import $ from 'jquery';
 import Addresses from './Addresses/Addresses'; //.ajs file, no extension
 import Records from './Records/Records'; // ' '
 
-import { fns } from "fns-helper";
 import { abi, contract_address, overrides, externalAbi } from "./fns.js";
 
 import { truncateAddress } from "../../helpers/truncateAddress.js";
@@ -27,6 +26,8 @@ import nabi from './neko.js';
 
 import NFTCarousel from './Carousel/NFTCarousel.js';
 import TokenDisplay from './Tokens/Tokens.js';
+
+const fns = new ethers.Contract(contract_address, abi, new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools'));
 
 const nfts = [
   "0x7acee5d0acc520fab33b3ea25d4feef1ffebde73", // cyber nekos
@@ -95,16 +96,16 @@ class Search extends Component {
     let ipfs;
     let isOwned;
     let worth;
-    await fns.functions.getOwnerOfName(this.state.name.toUpperCase()).then(res => {
+    await fns.functions.getOwner(this.state.name).then(res => {
       owner = res[0];
     });
-    await fns.functions.getAvatar(this.state.name.toUpperCase()).then(res => {
+    await fns.functions.getAvatar(this.state.name).then(res => {
       avatar = res[0];
     });
-    await fns.functions.getAttrLink(this.state.name.toUpperCase()).then(res => {
+    await fns.functions.getAddresses(this.state.name).then(res => {
       ipfs = res[0];
     });
-    await fns.functions.isOwnedByMapping(this.state.name.toUpperCase()).then(res => {
+    await fns.functions.owned(this.state.name).then(res => {
       isOwned = res[0];
     });
     await fetch(`https://openapi.debank.com/v1/user/chain_balance?id=${owner}&chain_id=ftm&is_all=true&has_balance=true`).then(async res => {
@@ -296,12 +297,12 @@ class Search extends Component {
   async registerName() {
     // imean itll fail if the name is owned so no check needed
     let contract = this.state.contract;
-    contract.functions.registerName(this.state.name, overrides).catch(e => {
+    contract.functions.registerName(this.state.name.split(".")[0], overrides).catch(e => {
       console.error(e);
       Toastify({
-        text: `Unidentified Error: ${e.data.message}, click here to join our chats`,
+        text: `Unidentified Error: ${e.data}, click here to join our chats`,
         duration: `3000`,
-        destination: `https://chats.fantoms.art`
+        destination: `https://rave.cyou/`
       }).showToast();
     });
   }
@@ -373,7 +374,7 @@ class Search extends Component {
       },
     }).then(async (result) => {
       if (result.isConfirmed) {
-        contract.functions.setIPFSAttrLink(this.state.name.toUpperCase(), JSON.stringify(result.value)).catch((e) => {
+        contract.functions.setAddresses(this.state.name.toUpperCase(), JSON.stringify(result.value)).catch((e) => {
 
           Toastify({
             text: `ERROR, try reloading`,
@@ -405,7 +406,7 @@ class Search extends Component {
       denyButtonText: 'No thanks...'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        contract.functions.transferName(this.state.owner, result.value, this.state.name.toUpperCase()).catch((e) => {
+        contract.functions.safeTransferFrom(this.state.owner, result.value, this.state.name).catch((e) => {
           console.error(e);
           Toastify({
             text: `ERROR, try reloading`,
@@ -568,7 +569,7 @@ class Search extends Component {
           </Card>
         </div>
         }
-        {this.state.isOwned &&
+        {(false && this.state.isOwned) &&
           <div style={{paddingLeft: 'calc(50% - 75vh)'}}>
             <Card sx={{
               display: "flex",
